@@ -1,0 +1,28 @@
+version: '3'
+services:
+  centos-test:
+    build:
+      context: ./centos
+    container_name: centos-test
+    volumes:
+      - ./data:/data
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    ports:
+      - 8088:80
+    networks:
+      - app-network
+  centos-test2:
+    container_name: centos-test2
+    image: centos/systemd
+    volumes:
+      - ./data:/data
+    ports:
+      - 8089:80
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    external:
+      name: vietjack-app-network
